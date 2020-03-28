@@ -17,17 +17,22 @@ unsigned long startMillis;
 unsigned int loops = 0;
 unsigned int iter = 0;
 
-void setup(){
-  GLCD.Init(NON_INVERTED);   // initialise the library, non inverted writes pixels onto a clear screen
-  GLCD.ClearScreen();  
-  GLCD.DrawBitmap(ArduinoIcon, 32,0, BLACK); //draw the bitmap at the given x,y position
-  GLCD.SelectFont(System5x7); // switch to fixed width system font 
-  countdown(5); 
-  GLCD.ClearScreen();
-  introScreen();              // show some intro stuff 
-  GLCD.ClearScreen();
-}
 
+void countdown(int count){
+    while(count--){  // do countdown  
+     GLCD.CursorTo(0,1);   // first column, second row (offset is from 0)
+     GLCD.PutChar(count + '0');
+     delay(1000);  
+  }  
+}
+void showCharacters(){
+  byte line = 3; // start on the fourth line 
+  for(byte c = 32; c <=127; c++){
+     if( (c-32) % 20 == 0)
+         GLCD.CursorTo(1,line++);  // CursorTo is used for fixed width system font
+     GLCD.PutChar(c);    
+  }   
+}
 void introScreen(){
   GLCD.SelectFont(Arial_14); // you can also make your own fonts, see playground for details   
   GLCD.GotoXY(20, 2);
@@ -39,14 +44,18 @@ void introScreen(){
   countdown(5);
 }
 
-void showCharacters(){
-  byte line = 3; // start on the fourth line 
-  for(byte c = 32; c <=127; c++){
-     if( (c-32) % 20 == 0)
-         GLCD.CursorTo(1,line++);  // CursorTo is used for fixed width system font
-     GLCD.PutChar(c);    
-  }   
+void setup(){
+  GLCD.Init(NON_INVERTED);   // initialise the library, non inverted writes pixels onto a clear screen
+  GLCD.ClearScreen();  
+  GLCD.DrawBitmap(ArduinoIcon, 32,0, BLACK); //draw the bitmap at the given x,y position
+  GLCD.SelectFont(System5x7); // switch to fixed width system font 
+  countdown(5); 
+  GLCD.ClearScreen();
+  introScreen();              // show some intro stuff 
+  GLCD.ClearScreen();
 }
+
+
 
 void drawSpinner(byte pos, byte x, byte y) {   
   // this draws an object that appears to spin
@@ -60,14 +69,6 @@ void drawSpinner(byte pos, byte x, byte y) {
   case 6 : GLCD.DrawLine( x+6, y+6, x-6, y-6, BLACK);  break; 
   case 7 : GLCD.DrawLine( x+3, y+7, x-3, y-7, BLACK);  break;
   } 
-}
-
-void countdown(int count){
-    while(count--){  // do countdown  
-     GLCD.CursorTo(0,1);   // first column, second row (offset is from 0)
-     GLCD.PutChar(count + '0');
-     delay(1000);  
-  }  
 }
 
 void  loop(){   // run over and over again

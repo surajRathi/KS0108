@@ -29,7 +29,7 @@
 */
 
 #include <inttypes.h>
-typedef uint8_t boolean;
+typedef bool boolean; // Not required for 1.8.12
 typedef uint8_t byte;
 #include <avr/pgmspace.h>
 
@@ -39,7 +39,7 @@ typedef uint8_t byte;
 #define GLCD_VERSION 2 // software version of this library
 
 // Chip specific includes
-#if defined(__AVR_ATmega1280__)
+#if defined(__AVR_ATmega1280__ ) || defined(__AVR_ATmega2560__)
 #include "ks0108_Mega.h"  // include this for the Arduino Mega other ATmega1280 boards
 #elif defined (__AVR_ATmega644__)  // TODO - check this define 
 #include "ks0108_Sanguino.h"   // include this for Sanguino or ATmega644 boards
