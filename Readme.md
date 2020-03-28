@@ -1,6 +1,7 @@
 # GLCD Driver for Arduino SDK
 
 Patched to work with Arduino Mega and SDK 1.0 (OSX).
+Now works with MEGA2560 with SDK 1.8.12 (LINUX).
 
 ### Setup
 
