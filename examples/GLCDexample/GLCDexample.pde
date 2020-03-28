@@ -17,7 +17,6 @@ unsigned long startMillis;
 unsigned int loops = 0;
 unsigned int iter = 0;
 
-
 void setup(){
   GLCD.Init(NON_INVERTED);   // initialise the library, non inverted writes pixels onto a clear screen
   GLCD.ClearScreen();  
